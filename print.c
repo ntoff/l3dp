@@ -49,6 +49,7 @@ int main(int argc, char** argv){
   tty.c_iflag |= ICRNL; 
   tty.c_cc[VMIN] = 1; 
   if(tcsetattr(fd, TCSANOW, &tty) != 0) err("tcsetaddr error\n"); 
+  cfsetspeed(&tty, baudrate); 
 
   char cmdline[bufsize], respline[bufsize];  
   size_t read;  
