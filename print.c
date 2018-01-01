@@ -46,8 +46,9 @@ int main(int argc, char** argv){
   int fd = open(device, O_RDWR | O_NOCTTY | O_SYNC); 
   if(fd < 0) err("failed to open device"); 
   if(tcgetattr(fd, &tty) != 0) err("tcgetaddr error\n"); 
-  tty.c_iflag |= ICRNL; 
-  tty.c_cc[VMIN] = 1; 
+  tty.c_iflag |= ICRNL; // Carriage returns replaced with newlines 
+  tty.c_cc[VMIN] = 1; // Don't return until there's a character available
+  tty.c_cc[VTIME] = 10; // Timeout after 1 second  
   if(tcsetattr(fd, TCSANOW, &tty) != 0) err("tcsetaddr error\n"); 
   cfsetspeed(&tty, baudrate); 
 
