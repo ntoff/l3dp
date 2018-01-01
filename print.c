@@ -47,7 +47,7 @@ int main(int argc, char** argv){
   if(fd < 0) err("failed to open device"); 
   if(tcgetattr(fd, &tty) != 0) err("tcgetaddr error\n"); 
   tty.c_iflag |= ICRNL; 
-  tty.c_cc[VMIN] = 3; 
+  tty.c_cc[VMIN] = 1; 
   if(tcsetattr(fd, TCSANOW, &tty) != 0) err("tcsetaddr error\n"); 
 
   char cmdline[bufsize], respline[bufsize];  
